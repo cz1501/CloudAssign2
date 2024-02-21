@@ -17,14 +17,14 @@ function addNewItem(data) {
       Id: generateId(),
       Title: data.title,
     },
-    TableName: 'ToDo',
+    TableName: 'Todo',
   });
   return ddbDocClient.send(cmd);
 }
 
 async function getItems() {
   const cmd = new ScanCommand({
-    TableName: 'ToDo',
+    TableName: 'Todo',
   });
 
   const response = await ddbDocClient.send(cmd);
