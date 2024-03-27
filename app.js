@@ -1,10 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const {
-  getItems,
-  addNewItem,
-} = require('./data');
+// const {
+//   getItems,
+//   addNewItem,
+// } = require('./data');
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-  res.redirect('/topics');
+  res.redirect('/main');
 });
 
 app.get('/help', function (req, res) {
@@ -25,16 +25,20 @@ app.get('/index', function (req, res) {
     res.render('index');
 });
 
-app.get('/topics', async function (req, res) {
-  const todo = await getItems();
-  res.render('main', { topics: todo });
+app.get('/main', function (req, res) {
+    res.render('main');
 });
 
-app.post('/topic', async function (req, res) {
-  const todoData = req.body;
-  await addNewItem(todoData);
-  res.redirect('/topics');
-});
+// app.get('/topics', async function (req, res) {
+//   const todo = await getItems();
+//   res.render('main', { topics: todo });
+// });
+
+// app.post('/topic', async function (req, res) {
+//   const todoData = req.body;
+//   await addNewItem(todoData);
+//   res.redirect('/topics');
+// });
 
 
 app.listen(3000);
