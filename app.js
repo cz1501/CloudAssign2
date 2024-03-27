@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-  res.redirect('/main');
+  res.redirect('/index');
 });
 
 app.get('/help', function (req, res) {

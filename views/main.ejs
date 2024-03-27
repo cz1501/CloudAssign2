@@ -20,21 +20,64 @@
       <nav class="container">
         <div class="row justify-content-between">
           <div class="col-md-auto">
-            <h3>Assignment #2</h3>
+            <h3>Assignment #3</h3>
           </div> 
           <div class="col-md-auto">
             <a href="/index" class="col-md-auto opacity-75"> Home </a>
-            <a href="/topics" class="col-md-auto opacity-75">Main</a>
             <a href="/help" class="col-md-auto opacity-75"> Help </a>
           </div>  
         </div>
         <div class="underline_b container opacity-25"></div>
       </nav>
     </header>
+    <main>
+      <div class="container">
+        <div class="row py-5">
+          <h1>Hello from COMP 3962</h1>
+        </div>
+        <div id="loggedInMessage" style="display: none;">
+          Welcome! You are now logged in.
+        </div>
+      </div>
 
-    
+
+    <script>
+        // Import AWS SDK and Cognito Identity SDK
+        var AWS = require('aws-sdk');
+        var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // Initialize AWS SDK
+        AWS.config.region = 'us-west-2'; // Replace with your AWS region
+        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: 'us-west-2:0cbc2752-cc3b-4b15-b029-0f4e49934a19' // Replace with your Cognito Identity Pool ID
+        });
+
+        // Authenticate the user
+        var cognitoUser = new AmazonCognitoIdentity.CognitoUser({
+            Username: 'USERNAME', // Replace with user's username
+            Pool: new AmazonCognitoIdentity.CognitoUserPool({
+                UserPoolId: 'us-west-2_r7ItZgQgf', // Replace with your User Pool ID
+                ClientId: '4fe0prq030arblgcc38qlb4anp' // Replace with your App Client ID
+            })
+        });
+
+        cognitoUser.authenticateUser(authenticationDetails, {
+            onSuccess: function(result) {
+                // User is authenticated, show the message
+                document.getElementById('loggedInMessage').style.display = 'block';
+            },
+            onFailure: function(err) {
+                // Authentication failed, handle the error
+                console.error('Authentication error:', err);
+            }
+        });
+    </script>
+    </main>
     <footer class="opacity-75">
-      Copyright <span>&#169</span> COMP 3962 Assignment 2 Design & Code by CZ
+      Copyright <span>&#169</span> COMP 3962 Assignment 3 Design & Code by CZ
     </footer>
   </body>
 </html>
